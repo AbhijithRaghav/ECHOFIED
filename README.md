@@ -1,2 +1,2 @@
-# ECHOFIED
-ECHO - Microblogging Social Media Platform.
+# ECHO
+Microblogging Social Media Platform.
