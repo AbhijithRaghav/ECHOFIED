@@ -1,0 +1,25 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+.developer-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.developer {
+    width: 300px;
+    margin: 20px;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 10px;
+}
+
+.developer h2 {
+    margin-top: 0;
+}
+
+.developer p {
+    margin-bottom: 10px;
+}

@@ -1,0 +1,40 @@
+<!-- developer.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team</title>
+    <link rel="stylesheet" href="developer.css">
+</head>
+<body>
+    <h1>Our Team</h1>
+    <div class="developer-list container"></div>
+    <script>
+        fetch('/developers')
+            .then(response => response.json())
+            .then(developers => {
+                const developerList = document.querySelector('.developer-list');
+                developers.forEach(developer => {
+                    const developerDiv = document.createElement('div');
+                    developerDiv.classList.add('developer');
+
+                    const name = document.createElement('h2');
+                    name.textContent = developer.name;
+                    developerDiv.appendChild(name);
+
+                    const role = document.createElement('p');
+                    role.textContent = `Role: ${developer.role}`;
+                    developerDiv.appendChild(role);
+
+                    const email = document.createElement('p');
+                    email.textContent = `Email: ${developer.email}`;
+                    developerDiv.appendChild(email);
+
+                    developerList.appendChild(developerDiv);
+                });
+            })
+            .catch(error => console.error('Error fetching developers:', error));
+    </script>
+</body>
+</html>
