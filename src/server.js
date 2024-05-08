@@ -4,6 +4,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const User = require('./user');
+const Contact = require('./contact');
+const Developer = require('./developer'); // Import Developer model
+
 
 const app = express();
 
@@ -29,6 +32,33 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Serve main.html as the default landing page
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'main.html'));
+});
+
+// Route to fetch developers from the database and send as JSON
+app.get('/developers', async (req, res) => {
+  try {
+    const developers = await Developer.find(); // Fetch all developers
+    res.json(developers); // Send developer data as JSON response
+  } catch (error) {
+    console.error('Error fetching developers:', error);
+    res.status(500).send('Error fetching developers');
+  }
+});
+
+
+app.get('/contacts', async (req, res) => {
+  try {
+    const contacts = await Contact.find();
+    res.json(contacts);
+  } catch (error) {
+    console.error('Error fetching contacts:', error);
+    res.status(500).send('Error fetching contacts');
+  }
+});
+
+// Serve contact.html as the contact page
+app.get('/contact', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'contact.html'));
 });
 
 app.post('/signupp', async (req, res) => {
@@ -72,5 +102,3 @@ app.listen(3030, () => {
 });
 
 console.log(__dirname);
-
-
