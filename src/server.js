@@ -97,8 +97,10 @@ app.post('/loginn', async (req, res) => {
 });
 
 
-app.listen(3030, () => {
-  console.log('Server is running on port 3030');
-});
+function startServer() {
+  app.listen(3030, () => {
+    console.log('Server is running on port 3030');
+  });
+}
 
 console.log(__dirname);
