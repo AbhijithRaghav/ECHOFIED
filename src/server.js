@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt');
 const User = require('./user');
 const Contact = require('./contact');
 const Developer = require('./developer'); // Import Developer model
@@ -13,7 +12,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost:27017/ECHOdatabase', {
+mongoose.connect('mongodb://localhost:27017/ECHOFIED8', {
 });
 
 
@@ -65,8 +64,7 @@ app.post('/signupp', async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ email, password: hashedPassword });
+    const user = new User({ email, password});
     await user.save();
     res.send('User created successfully');
   } catch (error) {
@@ -83,8 +81,8 @@ app.post('/loginn', async (req, res) => {
       return res.status(404).send('User not found');
     }
 
-    const passwordMatch = await bcrypt.compare(password, user.password);
-    if (!passwordMatch) {
+    // Check if the password matches the one stored in the database (plaintext comparison)
+    if (password !== user.password) {
       return res.status(401).send('Incorrect password');
     }
 
@@ -95,6 +93,7 @@ app.post('/loginn', async (req, res) => {
     res.status(500).send('Error logging in');
   }
 });
+
 
 app.listen(3030, () => {
   console.log('Server is running on port 3030');
