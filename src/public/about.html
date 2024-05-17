@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us</title>
+  <link rel="stylesheet" href="aboutstyle.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>About Us</h1>
+</div>
+
+<script>
+  fetch('/abouts')
+    .then(response => response.json())
+    .then(abouts => {
+      const container = document.querySelector('.container');
+      abouts.forEach(about => {
+        const employeeDiv = document.createElement('div');
+        employeeDiv.classList.add('employee');
+
+        const infoDiv = document.createElement('div');
+        infoDiv.classList.add('info');
+
+        const name = document.createElement('h2');
+        name.textContent = `COMPANY NAME: ${about.name}`;
+        infoDiv.appendChild(name);
+
+        const year = document.createElement('p');
+        year.textContent = `ACTIVE SINCE: ${about.year}`;
+        infoDiv.appendChild(year);
+
+        const location = document.createElement('p');
+        location.textContent = `LOCATION: ${about.location}`;
+        infoDiv.appendChild(location);
+
+        const email = document.createElement('p');
+        email.textContent = `EMAIL: ${about.email}`;
+        infoDiv.appendChild(email);
+
+    
+
+        employeeDiv.appendChild(infoDiv);
+        container.appendChild(employeeDiv);
+      });
+    })
+    .catch(error => console.error('Error fetching contacts:', error));
+</script>
+
+</body>
+</html>
