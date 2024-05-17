@@ -6,6 +6,7 @@ const User = require('./user');
 const Contact = require('./contact');
 const Developer = require('./developer'); // Import Developer model
 const About = require('./about');
+const Profile = require('./profile');
 
 
 const app = express();
@@ -63,6 +64,16 @@ app.get('/abouts', async (req, res) => {
   } catch (error) {
     console.error('Error fetching contacts:', error);
     res.status(500).send('Error fetching contacts');
+  }
+});
+
+app.get('/profiles', async (req, res) => {
+  try {
+    const profiles = await Profile.find();
+    res.json(profiles);
+  } catch (error) {
+    console.error('Error fetching profiles:', error);
+    res.status(500).send('Error fetching profiles');
   }
 });
 
