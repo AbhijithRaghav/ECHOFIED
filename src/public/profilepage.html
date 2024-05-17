@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="profilestyle.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <img src="images/batman.jpg" alt="Profile Picture" class="profile-pic">
+        <h1>User Profile</h1>
+    </div>
+</div>
+
+<script>
+  fetch('/profiles')
+    .then(response => response.json())
+    .then(profiles => {
+      const container = document.querySelector('.container');
+      profiles.forEach(profile => {
+        const employeeDiv = document.createElement('div');
+        employeeDiv.classList.add('employee');
+
+        const infoDiv = document.createElement('div');
+        infoDiv.classList.add('info');
+
+        const username = document.createElement('h2');
+        username.textContent = `USERNAME: ${profile.username}`;
+        infoDiv.appendChild(username);
+
+        const name = document.createElement('p');
+        name.textContent = `FULL NAME: ${profile.name}`;
+        infoDiv.appendChild(name);
+
+        const age = document.createElement('p');
+        age.textContent = `AGE: ${profile.age}`;
+        infoDiv.appendChild(age);
+
+        const dofb = document.createElement('p');
+        dofb.textContent = `DATE OF BIRTH: ${profile.dofb}`;
+        infoDiv.appendChild(dofb);
+
+        const location = document.createElement('p');
+        location.textContent = `LOCATION: ${profile.location}`;
+        infoDiv.appendChild(location);
+
+        const email = document.createElement('p');
+        email.textContent = `EMAIL: ${profile.email}`;
+        infoDiv.appendChild(email);
+
+        const followers = document.createElement('p');
+        followers.textContent = `FOLLOWERS: ${profile.followers}`;
+        infoDiv.appendChild(followers);
+
+        const following = document.createElement('p');
+        following.textContent = `FOLLOWING: ${profile.following}`;
+        infoDiv.appendChild(following);
+
+
+
+    
+
+        employeeDiv.appendChild(infoDiv);
+        container.appendChild(employeeDiv);
+      });
+    })
+    .catch(error => console.error('Error fetching contacts:', error));
+</script>
+
+</body>
+</html>
