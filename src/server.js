@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const User = require('./user');
 const Contact = require('./contact');
 const Developer = require('./developer'); // Import Developer model
+const About = require('./about');
 
 
 const app = express();
@@ -49,6 +50,16 @@ app.get('/contacts', async (req, res) => {
   try {
     const contacts = await Contact.find();
     res.json(contacts);
+  } catch (error) {
+    console.error('Error fetching contacts:', error);
+    res.status(500).send('Error fetching contacts');
+  }
+});
+
+app.get('/abouts', async (req, res) => {
+  try {
+    const abouts = await About.find();
+    res.json(abouts);
   } catch (error) {
     console.error('Error fetching contacts:', error);
     res.status(500).send('Error fetching contacts');
